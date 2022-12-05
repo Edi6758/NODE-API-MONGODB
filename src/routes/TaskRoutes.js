@@ -9,5 +9,6 @@ router.post('/', TaskValidation, TaskController.create)
 //creation of the routes, we put the middleare before the controller route so that validation is done before entering the route
 router.put('/:id', TaskValidation, TaskController.update)
 router.get('/filter/all', MacaddressValidation, TaskController.all)
+router.get('/:id', TaskController.show)
 
 module.exports = router
