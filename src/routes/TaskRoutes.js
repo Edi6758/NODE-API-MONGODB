@@ -13,5 +13,6 @@ router.get('/:id', TaskController.show)
 router.delete('/:id', TaskController.delete)
 router.put('/:id/:done', TaskController.done)
 router.get('/filter/late', MacaddressValidation, TaskController.late)
+router.get('/filter/today', MacaddressValidation, TaskController.today)
 
 module.exports = router

@@ -1,5 +1,6 @@
 const { response } = require('express')
 const TaskModel = require('../model/TaskModel')
+const {startOfDay, endOfDay } = require('date-fns')
 
 const current = new Date();
 
@@ -80,6 +81,21 @@ class TaskController {
             'when': {'$lt': current},
             'macaddress': {'$in': req.body.macaddress}
         }) //less than
+        .sort('when')
+        .then(response => {
+            return res.status(200).json(response)
+        })
+        .catch(error => {
+            return res.status(500).json(error)
+        })
+    }
+
+    async today(req, res){
+        await TaskModel
+        .find({
+            'macaddress': {'$in': req.body.macaddress},
+            'when': {'$gte': startOfDay(current), '$lt': endOfDay(current)} //equals, less then
+        })
         .sort('when')
         .then(response => {
             return res.status(200).json(response)
